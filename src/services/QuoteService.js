@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Urls from '@/config.js'
+import '@/interceptor.js'
 
 
   export default {
