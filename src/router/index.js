@@ -11,7 +11,14 @@ const routes = [
     component: Home
   },
   {
-    
+    path: '/pendingQuotes',
+    name: 'pendingQuotes',
+    component: () => import(/* webpackChunkName: "pendingQuotes" */ '@/views/PendingQuotes.vue')
+  },
+  {
+    path: '/soldQuotes',
+    name: 'soldQuotes',
+    component: () => import('@/views/SoldQuotes.vue')
   }
 ]
 
