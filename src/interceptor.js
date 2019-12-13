@@ -27,9 +27,9 @@ import router from '@/router'
                 //console.log(error.response.status)
                 switch(error.response.status)
                 {
-                    case 408: location.replace('http://www.google.com')//console.log('Request timeout')
+                    case 408: console.log('Request timeout')
                     break
-                    case 401: router.push('login')
+                    case 401: router.push('login') //location.replace('http://www.google.com')
                     break
                     case 403: console.log('You dont have permissions')
                     break

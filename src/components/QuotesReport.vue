@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import quoteServices from '@/services/QuotesService'
+import quoteServices from '@/services/QuoteService'
 import Urls from '@/config.js'
 export default {
     mounted(){
