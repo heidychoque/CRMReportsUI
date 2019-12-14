@@ -1,6 +1,7 @@
 <template>
     <div class="quotesReportDiv gray">
-        <p v-for="item in primaryItems" :key="item.quoteName">{{ item.quoteName}}</p>
+
+        <p v-for="item in quotes_data" :key="item.quoteName">{{ item.quoteName}}</p>
         
 
         <v-card class="primaryCard purple ">
@@ -8,7 +9,7 @@
             <v-data-table class="generalTable"
             v-model="quoteSelected"
             :headers="primaryHeaders"
-            :items="currentItems.length>0?currentItems:primaryItems"
+            :items="currentItems.length>0?currentItems:quotes_data"
             :single-select= true
             show-select
             :search="primarySearch"
@@ -28,28 +29,18 @@
 </template>
 
 <script>
-import quoteServices from '@/services/QuoteService'
-import Urls from '@/config.js'
+//import Urls from '@/config.js'
 export default {
     mounted(){
-        //this.$store.dispatch('functionName',this.$route.name)
-        console.log(this.$route)
-
-       if (this.$route.name === 'pendingQuotes') {
-        this.loadData(Urls.pendingQuotesUrl) 
-      }
-      else{
-          this.loadData(Urls.soldQuotesUrl) 
-      }
-    
-      
-    },watch: {
-
-      
+        this.$store.dispatch('loadData',this.$route.name)
+    },
+    computed : {
+        quotes_data: function () {
+            return this.$store.getters.getQuotes
+        }
     },
     data:() => ({
-     primarySearch: '',   
-     pendingSalesOnly:true,
+     primarySearch: '',
      quoteSelected:[],
      currentItems:[],
      primaryHeaders: [
@@ -62,6 +53,7 @@ export default {
           { text: 'Client', value: 'client.lastName' },
           { text: 'N.I.T.', value: 'client.ci' },
           { text: 'Date', value: 'date' },
+          
         ],
 
       primaryItems: [],
@@ -72,20 +64,7 @@ export default {
           { text: 'Quantity', value: 'quantity' },
       ]
 
-    }),
-    methods: {
-        loadData(url) {
-            quoteServices.getRequest(url)
-            .then(response => {
-                this.primaryItems = response.data
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error) 
-            })
-        }
-        
-    }
+    })
 }
 </script>
 
