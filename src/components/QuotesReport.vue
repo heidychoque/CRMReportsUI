@@ -32,7 +32,7 @@
 //import Urls from '@/config.js'
 export default {
     mounted(){
-        this.$store.dispatch('loadData',this.$route.name)
+        this.$store.dispatch('requestData',this.$route.name)
     },
     computed : {
         quotes_data: function () {

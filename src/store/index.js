@@ -16,7 +16,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    loadData(state, url) {
+    requestData(state, url) {
       axios.get((url === 'pendingQuotes') ? Urls.pendingQuotesUrl : Urls.soldQuotesUrl).then((response) => {
         state.commit('setQuotes',response.data)
       })

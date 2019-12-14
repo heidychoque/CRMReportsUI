@@ -13,12 +13,12 @@ const routes = [
   {
     path: '/pendingQuotes',
     name: 'pendingQuotes',
-    component: () => import(/* webpackChunkName: "pendingQuotes" */ '@/views/PendingQuotes.vue')
+    component: () => import('@/views/QuotesView.vue')
   },
   {
     path: '/soldQuotes',
     name: 'soldQuotes',
-    component: () => import('@/views/SoldQuotes.vue')
+    component: () => import('@/views/QuotesView.vue')
   }
 ]
 
