@@ -1,7 +1,7 @@
 <template>
     <div class="quotesReportDiv gray">
 
-        <p v-for="item in quotes_data" :key="item.quoteName">{{ item.quoteName}}</p>
+        <p v-for="item in this.primaryItems" :key="item.quoteName">{{ item.quoteName}}</p>
         
 
         <v-card class="primaryCard purple ">
@@ -9,7 +9,7 @@
             <v-data-table class="generalTable"
             v-model="quoteSelected"
             :headers="primaryHeaders"
-            :items="currentItems.length>0?currentItems:quotes_data"
+            :items="currentItems.length>0?currentItems:this.primaryItems"
             :single-select= true
             show-select
             :search="primarySearch"
@@ -25,21 +25,46 @@
             :sort-desc="[false, true]"
             ></v-data-table>
         </v-card>
+
+        <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      {{ text }}
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+
     </div>
 </template>
 
 <script>
-//import Urls from '@/config.js'
+
+
 export default {
     mounted(){
         this.$store.dispatch('requestData',this.$route.name)
+         /*if (this.$route.name === 'pendingQuotes') {
+        
+        this.loadData(Urls.pendingQuotesUrl) 
+      }
+      else{
+          
+          this.loadData(Urls.soldQuotesUrl) 
+      }*/
     },
     computed : {
-        quotes_data: function () {
+        /*quotes_data: function () {
             return this.$store.getters.getQuotes
-        }
+        }*/
     },
     data:() => ({
+        timeout: 2000,
      primarySearch: '',
      quoteSelected:[],
      currentItems:[],
@@ -65,6 +90,18 @@ export default {
       ]
 
     })
+    /* methods: {
+        loadData(url) {
+            quoteServices.getRequest(url)
+            .then(response => {
+                this.primaryItems = response.data
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error) 
+            })
+        }
+     }*/
 }
 </script>
 

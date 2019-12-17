@@ -1,39 +1,45 @@
 import axios from 'axios'
-import router from '@/router'
 
 
-        // Add a request interceptor
+
+       
         axios.interceptors.request.use(function (config) {
             debugger
-            const auth_token = localStorage.getItem('auth_token');
-            if(auth_token) {
-            config.headers.Authorization = `Bearer ${auth_token}`;
-            }
-            //console.log('requets ok')
-        return config;
+            const token = localStorage.getItem('token');
+            if(token) {
+                config.headers.Authorization = `Bearer ${token}`;
+                return config;
+              }
+              else{
+                location.replace('http://localhost:8080')
+                
+                return config;
+              }
+       
         }, function (error) {
-        // Do something with request error
+            
+       
         debugger
-            console.log('requesr error')
+            console.log('request error')
         return Promise.reject(error);
         });
 
         axios.interceptors.response.use(function (response) {
             debugger
-            console.log('response ok')
+            
+           
             return response;
             }, function (error) {
                 debugger
-                //console.log(error.response.status)
                 switch(error.response.status)
                 {
                     case 408: console.log('Request timeout')
                     break
-                    case 401: router.push('login') //location.replace('http://www.google.com')
+                    case 401: location.replace('http://localhost:8080')
                     break
                     case 403: console.log('You dont have permissions')
                     break
+                    case 500: console.log('Some error occured')
                 }
-                console.log('response error')
             return Promise.reject(error);
         });
