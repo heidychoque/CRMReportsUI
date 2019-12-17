@@ -1,15 +1,12 @@
 <template>
     <div class="quotesReportDiv gray">
 
-        <p v-for="item in this.primaryItems" :key="item.quoteName">{{ item.quoteName}}</p>
-        
-
         <v-card class="primaryCard purple ">
             <v-card-title>Quotings</v-card-title>
             <v-data-table class="generalTable"
             v-model="quoteSelected"
             :headers="primaryHeaders"
-            :items="currentItems.length>0?currentItems:this.primaryItems"
+            :items="currentItems.length>0?currentItems:this.quotesData"
             :single-select= true
             show-select
             :search="primarySearch"
@@ -26,44 +23,31 @@
             ></v-data-table>
         </v-card>
 
-        <v-snackbar
-      v-model="snackbar"
-      :timeout="timeout"
-    >
-      {{ text }}
-      <v-btn
-        color="blue"
-        text
-        @click="snackbar = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
+       
 
     </div>
 </template>
 
 <script>
-
+import Vue from 'vue';
+import Toasted from 'vue-toasted';
+ 
+Vue.use(Toasted)
 
 export default {
     mounted(){
-        this.$store.dispatch('requestData',this.$route.name)
-         /*if (this.$route.name === 'pendingQuotes') {
+        this.$toasted.show('hola')
+        //this.hola
+        //this.$store.dispatch('requestData',this.$route.name)
         
-        this.loadData(Urls.pendingQuotesUrl) 
-      }
-      else{
-          
-          this.loadData(Urls.soldQuotesUrl) 
-      }*/
     },
     computed : {
-        /*quotes_data: function () {
+        quotesData: function () {
             return this.$store.getters.getQuotes
-        }*/
+        }
     },
     data:() => ({
+        text:'' ,
         timeout: 2000,
      primarySearch: '',
      quoteSelected:[],
@@ -89,20 +73,14 @@ export default {
           { text: 'Quantity', value: 'quantity' },
       ]
 
-    })
-    /* methods: {
-        loadData(url) {
-            quoteServices.getRequest(url)
-            .then(response => {
-                this.primaryItems = response.data
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error) 
-            })
+    }),
+    method: {
+        hola(){
+            this.$toasted.show('hola')
         }
-     }*/
+    }
 }
+   
 </script>
 
 <style scoped>

@@ -4,15 +4,6 @@ import Home from '../views/Home.vue'
 //import store from '../store'
 
 Vue.use(VueRouter)
-/*const ifAuthenticated = (to, from, next) => {
-  if(store.getters.getAuthenticated){
-    console.log(store.getters.getAuthenticated)
-  //if (store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/login')
-}*/
 
 const routes = [
   {
@@ -23,13 +14,11 @@ const routes = [
   {
     path: '/pendingQuotes',
     name: 'pendingQuotes',
-    //beforeEnter: ifAuthenticated,
     component: () => import('@/views/QuotesView.vue')
   },
   {
     path: '/soldQuotes',
     name: 'soldQuotes',
-    //beforeEnter: ifAuthenticated,
     component: () => import('@/views/QuotesView.vue')
   }
 ]

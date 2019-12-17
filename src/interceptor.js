@@ -1,8 +1,5 @@
 import axios from 'axios'
-
-
-
-       
+     
         axios.interceptors.request.use(function (config) {
             debugger
             const token = localStorage.getItem('token');
@@ -11,7 +8,7 @@ import axios from 'axios'
                 return config;
               }
               else{
-                location.replace('http://localhost:8080')
+                //location.replace('http://localhost:8080/login')
                 
                 return config;
               }
@@ -20,7 +17,7 @@ import axios from 'axios'
             
        
         debugger
-            console.log('request error')
+            console.log('Not existed session')
         return Promise.reject(error);
         });
 
@@ -35,7 +32,7 @@ import axios from 'axios'
                 {
                     case 408: console.log('Request timeout')
                     break
-                    case 401: location.replace('http://localhost:8080')
+                    case 401: //location.replace('http://localhost:8080/login')
                     break
                     case 403: console.log('You dont have permissions')
                     break

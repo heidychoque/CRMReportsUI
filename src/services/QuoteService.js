@@ -12,6 +12,6 @@ import '@/interceptor.js'
         .catch(error => { console.log('Get request failed'); reject(error) })
     })
     
-  },
+  }
 
 }
