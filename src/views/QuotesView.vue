@@ -1,9 +1,12 @@
 <template>
-  <div class="pendingQuotes">
-    <h1>Pending Quotes</h1>
+  <div class="Quotes" >
+    <v-row>
+    <h1 class="mx-auto mt-10">Quotes Reports</h1>
+    </v-row>
     <QuotesReport/>
   </div>
 </template>
+
 
 <script lang="ts">
 import Vue from 'vue'

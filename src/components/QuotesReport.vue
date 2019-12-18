@@ -1,5 +1,7 @@
 <template>
+ 
     <div class="quotesReportDiv gray">
+
         <v-card class="primaryCard purple ">
             <v-card-title>Quotings</v-card-title>
             <v-data-table class="generalTable"
@@ -39,6 +41,7 @@ export default {
         }
     },
     data:() => ({
+        title: '',
      primarySearch: '',
      quoteSelected:[],
      currentItems:[],
