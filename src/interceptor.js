@@ -1,42 +1,47 @@
 import axios from 'axios'
+import toasted from '@/toasted.js'
+import Urls from '@/config.js'
      
-        axios.interceptors.request.use(function (config) {
-            debugger
-            const token = localStorage.getItem('token');
-            if(token) {
-                config.headers.Authorization = `Bearer ${token}`;
-                return config;
-              }
-              else{
-                //location.replace('http://localhost:8080/login')
-                
-                return config;
-              }
-       
+    axios.interceptors.request.use(function (config) {
+     const token = localStorage.getItem('token');
+        if(token) 
+        {
+            config.headers.Authorization = `Bearer ${token}`;
+            return config;
+        }
+        else
+        {
+            location.replace(Urls.loginUrl);   
+            return null;
+        }
+
         }, function (error) {
-            
-       
-        debugger
-            console.log('Not existed session')
-        return Promise.reject(error);
+            console.log("Error with request interceptor")
+            return Promise.reject(error);
         });
 
-        axios.interceptors.response.use(function (response) {
-            debugger
+    axios.interceptors.response.use(function (response) {
+        return response;
+        }, function (error) {
             
-           
-            return response;
-            }, function (error) {
-                debugger
-                switch(error.response.status)
+            switch(error.response.status)
                 {
-                    case 408: console.log('Request timeout')
-                    break
-                    case 401: //location.replace('http://localhost:8080/login')
-                    break
-                    case 403: console.log('You dont have permissions')
-                    break
-                    case 500: console.log('Some error occured')
+                    case 408: toasted.showAlert('Request timeout')
+                    return Promise.reject("Request timeout")
+                    
+                    case 401: location.replace(Urls.loginUrl)
+                    return Promise.reject("No session")
+                    
+                    case 403: toasted.showAlert('You dont have permissions')
+                    return Promise.reject("You dont have permissions")
+                    
+                    case 500: toasted.showAlert('Some error occured')
+                    return Promise.reject("Some error occured")
+                    
+                    default: toasted.showAlert('Some error has occurred')
+                    break;
                 }
+            
             return Promise.reject(error);
+        
         });

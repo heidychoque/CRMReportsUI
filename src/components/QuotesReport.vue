@@ -1,6 +1,5 @@
 <template>
     <div class="quotesReportDiv gray">
-
         <v-card class="primaryCard purple ">
             <v-card-title>Quotings</v-card-title>
             <v-data-table class="generalTable"
@@ -29,17 +28,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import Toasted from 'vue-toasted';
- 
-Vue.use(Toasted)
 
 export default {
     mounted(){
-        this.$toasted.show('hola')
-        //this.hola
-        //this.$store.dispatch('requestData',this.$route.name)
-        
+       this.$store.dispatch('requestData',this.$route.name) 
     },
     computed : {
         quotesData: function () {
@@ -47,8 +39,6 @@ export default {
         }
     },
     data:() => ({
-        text:'' ,
-        timeout: 2000,
      primarySearch: '',
      quoteSelected:[],
      currentItems:[],
@@ -73,12 +63,7 @@ export default {
           { text: 'Quantity', value: 'quantity' },
       ]
 
-    }),
-    method: {
-        hola(){
-            this.$toasted.show('hola')
-        }
-    }
+    })
 }
    
 </script>

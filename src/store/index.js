@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import Urls from '@/config.js'
 import quoteServices from '@/services/QuoteService'
 
 Vue.use(Vuex)
@@ -18,7 +18,7 @@ export default new Vuex.Store({
   },
   actions: {
     requestData(state, url) {
-      quoteServices.getRequest(url)
+      quoteServices.getRequest((url === 'pendingQuotes' ? Urls.pendingQuotesUrl : Urls.soldQuotesUrl))
             .then(response => {
               state.commit('setQuotes',response.data)
                 console.log(response)
@@ -27,9 +27,6 @@ export default new Vuex.Store({
                 console.log(error) 
             })
     }
-   
-  },
-  modules: {
   },
   getters: {
     getQuotes(state){
