@@ -23,9 +23,6 @@
             :sort-desc="[false, true]"
             ></v-data-table>
         </v-card>
-
-       
-
     </div>
 </template>
 
@@ -41,7 +38,6 @@ export default {
         }
     },
     data:() => ({
-        title: '',
      primarySearch: '',
      quoteSelected:[],
      currentItems:[],
