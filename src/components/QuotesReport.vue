@@ -1,4 +1,7 @@
 <template>
+
+
+
  
     <div class="quotesReportDiv gray">
 
@@ -30,7 +33,7 @@
 
 export default {
     mounted(){
-       this.$store.dispatch('requestData',this.$route.name) 
+
     },
     computed : {
         quotesData: function () {

@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
    quotes_list: [],
-  
+
   },
   mutations: {
     setQuotes(state,quotes_list){
@@ -17,14 +17,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    requestData(state, url) {
+    requestData(state,url) {
       quoteServices.getRequest((url === 'pendingQuotes' ? Urls.pendingQuotesUrl : Urls.soldQuotesUrl))
             .then(response => {
               state.commit('setQuotes',response.data)
-                console.log(response)
+              console.log(response)
             })
             .catch(error => {
-                console.log(error) 
+              console.log(error) 
             })
     }
   },

@@ -16,7 +16,7 @@ import Urls from '@/config.js'
         }
 
         }, function (error) {
-            console.log("Error with request interceptor")
+            //console.log("Error with request interceptor")
             return Promise.reject(error);
         });
 
