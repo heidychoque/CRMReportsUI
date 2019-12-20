@@ -31,7 +31,7 @@ export default new Vuex.Store({
               state.commit('setQuotes',response.data)
             })
             .catch(error => {
-              throw error;
+              alert(error);
             })
     },
     setType(state,type) {
