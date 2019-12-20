@@ -1,23 +1,21 @@
 <template>
-
-
-
- 
-    <div class="quotesReportDiv gray">
-
-        <v-card class="primaryCard purple ">
+    <div class="quotesReportDiv gray" v-if="showContent">
+        <v-row>
+            <h1 class="mx-auto my-3">{{ quotesType }}</h1>
+        </v-row>
+        <v-card class="primaryCard cyan accent-2">
             <v-card-title>Quotings</v-card-title>
             <v-data-table class="generalTable"
             v-model="quoteSelected"
             :headers="primaryHeaders"
-            :items="currentItems.length>0?currentItems:this.quotesData"
+            :items="currentItems.length>0?currentItems:quotesData"
             :single-select= true
             show-select
             :search="primarySearch"
             ></v-data-table>
         </v-card>
 
-        <v-card class="secondCard blue">
+        <v-card class="secondCard teal accent-2">
             <v-card-title>Products</v-card-title>
             <v-data-table class="secondTable "
             :headers="secondHeaders"
@@ -30,41 +28,29 @@
 </template>
 
 <script>
-
+import tableHeaders from '../tableHeaders.js'
 export default {
     mounted(){
-
     },
     computed : {
         quotesData: function () {
             return this.$store.getters.getQuotes
+        },
+        quotesType: function () {
+            return this.$store.getters.getType
+        },
+        showContent: function(){
+            return this.$store.getters.getShow
         }
     },
     data:() => ({
-     primarySearch: '',
-     quoteSelected:[],
-     currentItems:[],
-     primaryHeaders: [
-          {
-            text: 'Quote Code',
-            align: 'left',
-            sortable: false,
-            value: 'quoteName',
-          },
-          { text: 'Client', value: 'client.lastName' },
-          { text: 'N.I.T.', value: 'client.ci' },
-          { text: 'Date', value: 'date' },
-          
-        ],
-
-      primaryItems: [],
-      auxiliar:[],
-      secondHeaders: [
-          { text: 'Name', value: 'product' },
-          { text: 'Price', value: 'price' },
-          { text: 'Quantity', value: 'quantity' },
-      ]
-
+        primarySearch: '',
+        quoteSelected:[],
+        currentItems:[],
+        primaryHeaders: tableHeaders.quotingHeaders,
+        primaryItems: [],
+        auxiliar:[],
+        secondHeaders: tableHeaders.productHeaders
     })
 }
    

@@ -15,22 +15,22 @@ import Urls from '@/config.js'
             return null;
         }
 
-        }, function (error) {
-            //console.log("Error with request interceptor")
-            return Promise.reject(error);
-        });
+    }, function (error) {
+        return Promise.reject(error);
+    });
 
     axios.interceptors.response.use(function (response) {
         return response;
+
         }, function (error) {
-            
+            if(error.response){
             switch(error.response.status)
                 {
                     case 408: toasted.showAlert('Request timeout')
                     return Promise.reject("Request timeout")
                     
                     case 401: location.replace(Urls.loginUrl)
-                    return Promise.reject("No session")
+                    return Promise.reject("No session Redirecting to Login")
                     
                     case 403: toasted.showAlert('You dont have permissions')
                     return Promise.reject("You dont have permissions")
@@ -41,7 +41,12 @@ import Urls from '@/config.js'
                     default: toasted.showAlert('Some error has occurred')
                     break;
                 }
+            }
+            else
+            {
+                toasted.showAlert('No connection with API Gateway')
+                return Promise.reject('No connection with API Gateway');
+            }
+           
             
-            return Promise.reject(error);
-        
         });

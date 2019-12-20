@@ -8,8 +8,12 @@ import '@/interceptor.js'
 
     return new Promise((resolve, reject) => {
       axios.get(url)
-        .then(response => { resolve(response) })
-        .catch(error => {reject(error) })
+        .then(response => { 
+          resolve(response) 
+        })
+        .catch(error =>
+          {reject(error) 
+        })
     })
     
   }

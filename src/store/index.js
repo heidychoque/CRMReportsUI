@@ -9,11 +9,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
    quotes_list: [],
+   quote_type: '',
+   show_content: false
 
   },
   mutations: {
     setQuotes(state,quotes_list){
       state.quotes_list = quotes_list
+    },
+    setType(state,quote_type){
+      state.quote_type = quote_type
+    },
+    setShow(state){
+      state.show_content = true
     }
   },
   actions: {
@@ -21,16 +29,28 @@ export default new Vuex.Store({
       quoteServices.getRequest((url === 'pendingQuotes' ? Urls.pendingQuotesUrl : Urls.soldQuotesUrl))
             .then(response => {
               state.commit('setQuotes',response.data)
-              console.log(response)
             })
             .catch(error => {
-              console.log(error) 
+              throw error;
             })
+    },
+    setType(state,type) {
+      state.commit('setType',(type === 'pendingQuotes' ? 'Pending Quotes' : 'Sold Quotes'))
+    },
+    setShow(state){
+      state.commit('setShow')
     }
+
   },
   getters: {
     getQuotes(state){
       return state.quotes_list
+    },
+    getType(state){
+      return state.quote_type
+    },
+    getShow(state){
+      return state.show_content
     }
   }
 })
